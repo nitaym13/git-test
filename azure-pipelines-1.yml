@@ -6,6 +6,28 @@
 trigger:
 - main
 
+jobs:
+- job: Download
+  workspace:
+    clean: all
+  pool:
+    name: Self-Hosted-Agent
+  steps:  
+- task: ArtifactoryGenericDownload@3
+  inputs:
+    connection: 'basic-nitaym'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern": "maven-remote-smart",
+            "target": "/test"
+          }
+        ]
+      }
+    failNoOp: true
+
 pool:
   vmImage: ubuntu-latest
 
