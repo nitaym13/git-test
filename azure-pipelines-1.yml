@@ -59,14 +59,14 @@ jobs:
       
   - task: ArtifactoryGenericDownload@3
     inputs:
-      connection: 'maven-remote-smart'
-      specSource: '/test'
+      connection: 'BasicAuth-artifactory'
+      specSource: 'taskConfiguration'
       fileSpec: |
         {
           "files": [
             {
-              "pattern": "uploadordownload-generic-local/upload/*.go",
-              "target": "c:\\download\\"
+              "pattern": "maven-remote-smart",
+              "target": "/download"
             }
           ]
         }
