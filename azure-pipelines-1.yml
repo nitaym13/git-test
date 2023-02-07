@@ -7,7 +7,7 @@ jobs:
   workspace:
     clean: all
   pool:
-    name: Azure Pipelines
+    name: nitaym
   steps:   
   - task: ArtifactoryGenericDownload@3
     inputs:
