@@ -1,41 +1,73 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+- master
+
 
 jobs:
-- job: Download
+- job: BuildAndTest
   workspace:
     clean: all
   pool:
     name: Self-Hosted-Agent
-  steps:  
-- task: ArtifactoryGenericDownload@3
-  inputs:
-    connection: 'basic-nitaym'
-    specSource: 'taskConfiguration'
-    fileSpec: |
-      {
-        "files": [
-          {
-            "pattern": "maven-remote-smart",
-            "target": "/test"
-          }
-        ]
-      }
-    failNoOp: true
+  steps:
+  - task: GoTool@0
+    inputs:
+      version: '1.17'
+  - task: Go@0
+    displayName: "Go Get"
+    inputs:
+      command: 'get'
+      arguments: '-d'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: Go@0
+    displayName: "Go Build"
+    inputs:
+      command: 'build'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: Go@0
+    displayName: "Go Test"
+    inputs:
+      command: 'test'
+      arguments: './...'
+  - task: CopyFiles@2
+    displayName: "Copy files to ArtifactStaging"
+    inputs:
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact"
+    inputs:
+       artifactName: drop
 
-pool:
-  vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - task: ArtifactoryGenericUpload@2
+    inputs:
+      artifactoryService: 'BasicAuth-artifactory'
+      specSource: 'taskConfiguration'
+      fileSpec: |
+        {
+          "files": [
+            {
+              "pattern": "*.go",
+              "target": "uploadordownload-generic-local/upload/"
+            },
+                        {
+              "pattern": "*.yaml",
+              "target": "uploadordownload-generic-local/upload/"
+            }
+          ]
+        }
+      failNoOp: true
+      
+  - task: ArtifactoryGenericDownload@3
+    inputs:
+      connection: 'maven-remote-smart'
+      specSource: '/test'
+      fileSpec: |
+        {
+          "files": [
+            {
+              "pattern": "uploadordownload-generic-local/upload/*.go",
+              "target": "c:\\download\\"
+            }
+          ]
+        }
+      failNoOp: true
