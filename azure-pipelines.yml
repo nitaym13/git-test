@@ -4,28 +4,19 @@
 # https://aka.ms/yaml
 
 trigger:
+- task: ArtifactoryGenericDownload@3
+  inputs:
+    connection: 'basic-nitaym'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern": "maven-remote-smart",
+            "target": "/test"
+          }
+        ]
+      }
+    failNoOp: true
 - main
 
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- task: JFrogDotnetCore@1
- inputs:
-    command: 'push'
-    artifactoryConnection: 'nitaym'
-    targetResolveRepo: 'nuget-virtual'
-    rootPath: '**/*.sln'
-    collectBuildInfo: true
-    buildName: 'test'
-    buildNumber: '1'
-    includeEnvVars: true
-    pathToNupkg: '*.nupkg'
-    
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
