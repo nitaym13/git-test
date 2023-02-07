@@ -11,7 +11,7 @@ jobs:
   steps:   
   - task: ArtifactoryGenericDownload@3
     inputs:
-      connection: 'BasicAuth-artifactory'
+      connection: 'basic-nitaym'
       specSource: 'taskConfiguration'
       fileSpec: |
         {
