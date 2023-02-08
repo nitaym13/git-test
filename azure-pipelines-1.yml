@@ -17,27 +17,12 @@ jobs:
         {
           "files": [
             {
-              "pattern": "maven-remote-smart/*",
-              "target": "/download"
-            }
-          ]
-        }
-      failNoOp: true
-
-  - task: ArtifactoryGenericDownload@3
-    inputs:
-      connection: 'basic-nitaym'
-      specSource: 'taskConfiguration'
-      fileSpec: |
-        {
-          "files": [
-            {
               "pattern": "maven-remote-smart",
               "target": "/Downloads"
             }
           ]
         }
       collectBuildInfo: true
-      buildName: '$(Build.DefinitionName)'
-      buildNumber: '$(Build.BuildNumber)'
+      buildName: 'my-build'
+      buildNumber: '1.0.0'
       failNoOp: true
