@@ -18,6 +18,7 @@ jobs:
           "files": [
             {
               "pattern": "maven-remote-smart",
+              "builds": "my-build,1.0.0"
               "target": "/Downloads"
             }
           ]
