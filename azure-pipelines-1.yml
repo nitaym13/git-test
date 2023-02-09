@@ -17,7 +17,7 @@ jobs:
         {
           "files": [
             {
-              "pattern": "maven-remote-smart/telemetry-core-0.12.0.jar"
+              "pattern": "maven-remote-smart/telemetry-core-0.12.0.jar",
               "build": "my-build,1.0.0",
               "target": "Downloads2/"
             }
