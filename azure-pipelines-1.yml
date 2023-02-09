@@ -9,23 +9,6 @@ jobs:
   pool:
     name: nitaym
   steps:   
-  - task: ArtifactoryGenericDownload@3
-    inputs:
-      connection: 'basic-nitaym'
-      specSource: 'taskConfiguration'
-      fileSpec: |
-        {
-          "files": [
-            {
-            "aql": {
-                "items.find": {
-                  "repo": "maven-remote-smart",
-                  "@build.name": "$eq":"my-build"
-                  }
-            },
-            "target": "Downloads2/"
-            }
-          ]
-        }
-      collectBuildInfo: true
-      failNoOp: true
+- task: JfrogCli@1
+  inputs:
+    command: 'jf rt s maven-remote-smart --build "my-build" --transitive'
