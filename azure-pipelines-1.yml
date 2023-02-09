@@ -9,6 +9,6 @@ jobs:
   pool:
     name: nitaym
   steps:   
-- task: JfrogCli@1
-  inputs:
-    command: 'jf rt s maven-remote-smart --build "my-build" --transitive'
+  - task: JfrogCli@1
+    inputs:
+      command: 'jf rt s maven-remote-smart --build "my-build" --transitive'
