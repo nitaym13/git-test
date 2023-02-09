@@ -17,7 +17,7 @@ jobs:
         {
           "files": [
             {
-              "aql": "items.find({"repo":"maven-remote-smart"},{"@build.name":{"$eq":"my-build"}).transitive()",
+              "aql": "items.find({"repo":"maven-remote-smart"},{"@build.name":{"$eq":"my-build"}.transitive()",
               "target": "Downloads2/"
             }
           ]
