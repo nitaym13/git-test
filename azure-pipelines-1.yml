@@ -19,9 +19,9 @@ jobs:
             {
             "aql": {
                 "items.find": {
-                  "repo": "maven-remote-smart",
-                  "@build.name": "$eq":"my-build"
+                  "repo": "maven-remote-smart"
                   }
+            }
             "target": "Downloads2/"
             }
           ]
