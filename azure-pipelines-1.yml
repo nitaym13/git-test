@@ -11,4 +11,4 @@ jobs:
   steps:   
   - task: JfrogCli@1
     inputs:
-      command: 'jf rt s maven-remote-smart --build "my-build" --transitive'
+      command: 'jfrog rt s maven-remote-smart --build "my-build" --transitive'
