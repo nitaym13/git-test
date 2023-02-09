@@ -17,13 +17,10 @@ jobs:
         {
           "files": [
             {
-              "pattern": "**/*",
-              "build": "my-build/1.0.0",
+              "aql": "items.find({"repo":"maven-remote-smart"},{"@build.name":{"$eq":"my-build"}}).transitive()",
               "target": "Downloads2/"
             }
           ]
         }
       collectBuildInfo: true
-      buildName: 'my-build'
-      buildNumber: '1.0.0'
       failNoOp: true
